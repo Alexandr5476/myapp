@@ -2,10 +2,8 @@ from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.textinput import TextInput
-from kivy.core.window import Window
 import telegram
 
-Window.title = "Программа"
 
 
 class My(App):

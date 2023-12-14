@@ -1,18 +1,13 @@
-import asyncio
 from config import TOKEN
-from aiogram import Bot, Dispatcher
+import telebot
 
-bot = Bot(TOKEN)
-dp = Dispatcher(bot)
+bot = telebot.TeleBot(TOKEN)
 
 
-@dp.message_handler()
-async def fnc(text):
-    ses = await bot.get_session()
-    await bot.send_message(chat_id="888281527", text=text)
-    await ses.close()
+def fnc(text):
+    bot.send_message("888281527", text)
 
 
 def send(text):
     if text != '':
-        asyncio.run(fnc(text))
+        fnc(text)
