@@ -33,4 +33,5 @@ class My(App):
         return box
 
 
-My().run()
+if __name__ == '__main__':
+    My().run()
