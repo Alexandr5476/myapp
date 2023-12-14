@@ -13,4 +13,5 @@ async def fnc(text):
 
 
 def send(text):
-    asyncio.run(fnc(text))
+    if text != '':
+        asyncio.run(fnc(text))

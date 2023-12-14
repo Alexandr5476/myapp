@@ -3,7 +3,7 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.textinput import TextInput
 from kivy.core.window import Window
-# import telegram
+import telegram
 
 Window.title = "Программа"
 
@@ -18,7 +18,7 @@ class My(App):
 
     def from_input(self, *args):
         data = self.input.text
-        # telegram.send(data)
+        telegram.send(data)
 
     def build(self):
         box = BoxLayout(orientation='vertical')
