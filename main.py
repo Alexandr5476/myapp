@@ -3,7 +3,8 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
-import requests
+from kivy.network.urlrequest import UrlRequest
+import certifi
 
 
 class My(App):
@@ -19,9 +20,9 @@ class My(App):
         self.info("Считывается текст...")
         if data != '':
             self.info(f"Не пустое сообщение ('{data}') --- отправка...")
-            requests.get(
+            UrlRequest(
                 f"https://api.telegram.org/bot6654600196:AAEHouKkxE26ltUOMvjou9LYwCuhJl4hR0k/sendMessage?chat_id"
-                f"=888281527&text={data}")
+                f"=888281527&text={data}", ca_file=certifi.where())
             self.info("отправлено\n")
         else:
             self.info("Пустое сообщение\n")

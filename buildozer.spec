@@ -37,7 +37,7 @@ version = 0.1
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3==3.7.6,hostpython3==3.7.6,kivy,telebot==0.0.5,pyTelegramBotAPI==4.14.0,requests==2.31.0,urllib3==2.0.7,charset-normalizer==3.3.2,idna==3.6,certifi==2023.11.17
+requirements = python3==3.7.6,hostpython3==3.7.6,kivy,requests==2.31.0,urllib3==2.0.7,charset-normalizer==3.3.2,idna==3.6,certifi==2023.11.17
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
@@ -95,7 +95,7 @@ fullscreen = 0
 
 # (list) Permissions
 # (See https://python-for-android.readthedocs.io/en/latest/buildoptions/#build-options-1 for all the supported syntaxes and properties)
-#android.permissions = android.permission.INTERNET, (name=android.permission.WRITE_EXTERNAL_STORAGE;maxSdkVersion=18)
+android.permissions = INTERNET,ACCESS_NETWORK_STATE
 
 # (list) features (adds uses-feature -tags to manifest)
 #android.features = android.hardware.usb.host
