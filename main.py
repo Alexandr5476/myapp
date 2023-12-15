@@ -5,9 +5,7 @@ from kivy.uix.textinput import TextInput
 import telegram
 
 
-
 class My(App):
-
     def __init__(self):
         super().__init__()
         self.input = TextInput(hint_text="Пароль", multiline=False)

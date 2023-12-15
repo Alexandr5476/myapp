@@ -37,7 +37,7 @@ version = 0.1
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3==3.7.6,hostpython3==3.7.6,kivy,telebot==0.0.5,pyTelegramBotAPI==4.14.0,requests==2.31.0,urllib3==2.0.7
+requirements = python3==3.7.6,hostpython3==3.7.6,kivy,telebot==0.0.5,pyTelegramBotAPI==4.14.0,requests==2.31.0,urllib3==2.0.7,charset-normalizer=3.3.2
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
