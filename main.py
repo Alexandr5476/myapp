@@ -46,7 +46,7 @@ class My(App):
 
     def build(self):
         a = AnchorLayout()
-        box = BoxLayout(orientation='vertical', size_hint=[None, .25], size=[320, 250], spacing=15)
+        box = BoxLayout(orientation='vertical', size_hint=[.6, .2], size=[320, 250], spacing=15)
         box.add_widget(self.input1)
         box.add_widget(self.input2)
         box.add_widget(self.button)
