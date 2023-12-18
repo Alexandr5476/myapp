@@ -8,8 +8,13 @@ from kivy.uix.anchorlayout import AnchorLayout
 from kivy.uix.label import Label
 import certifi
 from urllib.parse import urlencode
+from kivy.uix.image import Image
+from kivy.lang import Builder
 
 Window.clearcolor = (0.859, 0.859, 0.859, 1)
+
+class RotatedImage(Image):
+    angle = 15
 
 
 class My(App):
