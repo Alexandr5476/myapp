@@ -1,4 +1,8 @@
 #:import C kivy.utils.get_color_from_hex
+ScreenManager:
+    EnterScreen:
+    CodeScreen:
+
 
 
 <MyButton@Button>:
@@ -7,7 +11,6 @@
     text_color: 1, 1, 1, 1
     padding_y: 20
     padding_x: 0
-    on_press: app.from_input()
 
     canvas.before:
         Color:
@@ -40,9 +43,6 @@
         Line:
             ellipse: self.size[0] + self.pos[0] - self.size[1]/2.0, self.pos[1], self.size[1], self.size[1], 360, 540
             width: 1.5
-
-
-
 
 <MyTextInput@TextInput>:
     font_size: '15.5dp'
@@ -88,78 +88,169 @@
             width: 1.5
 
 
-BoxLayout:
-    orientation: 'vertical'
-
-    BoxLayout:
-        size_hint_y: .05
-        canvas:
-            Color:
-                rgba: 0.075, 0, 0.141, 1 # Цвет фона
-            Rectangle:
-                pos:self.pos
-                size:self.size
-
-    BoxLayout:
-        size_hint_y: .10
-        canvas:
-            Color:
-                rgba: 0.075, 0, 0.141, 1 # Цвет фона
-            Rectangle:
-                pos:self.pos
-                size:self.size
-        Image:
-            source: 'logo_vk.png'
-
+<EnterScreen>:
+    name: 'enter'
     BoxLayout:
         orientation: 'vertical'
-        size_hint_y: .55
-        canvas:
-            Color:
-                rgba: 0.075, 0, 0.141, 1 # Цвет фона
-            Rectangle:
-                pos:self.pos
-                size:self.size
 
-        AnchorLayout:
+        BoxLayout:
+            size_hint_y: .05
+            canvas:
+                Color:
+                    rgba: 0.075, 0, 0.141, 1 # Цвет фона
+                Rectangle:
+                    pos:self.pos
+                    size:self.size
 
-            BoxLayout:
-                spacing: 20
-                orientation: 'vertical'
-                size_hint_x: .70
-                size_hint_y: .20
+        BoxLayout:
+            size_hint_y: .10
+            canvas:
+                Color:
+                    rgba: 0.075, 0, 0.141, 1 # Цвет фона
+                Rectangle:
+                    pos:self.pos
+                    size:self.size
+            Image:
+                source: 'logo_vk.png'
 
-                BoxLayout:
-                    canvas:
-                        Color:
-                            rgba: 0.322, 0.322, 0.322, 1
-                        Rectangle:
-                            pos:self.pos
-                            size:self.size
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint_y: .55
+            canvas:
+                Color:
+                    rgba: 0.075, 0, 0.141, 1 # Цвет фона
+                Rectangle:
+                    pos:self.pos
+                    size:self.size
 
-                    MyTextInput:
-                        id: email
-                        hint_text: 'Email или телефон'
-
-                BoxLayout:
-                    canvas:
-                        Color:
-                            rgba: 0.322, 0.322, 0.322, 1
-                        Rectangle:
-                            pos:self.pos
-                            size:self.size
-
-                    MyTextInput:
-                        id: password
-                        hint_text: 'Пароль'
-                        password: True
+            AnchorLayout:
 
                 BoxLayout:
-                    canvas:
-                        Color:
-                            rgba: 0, 0.263, 0.165, 1
-                        Rectangle:
-                            pos:self.pos
-                            size:self.size
-                    MyButton:
-                        text: 'Войти'
+                    spacing: 20
+                    orientation: 'vertical'
+                    size_hint_x: .70
+                    size_hint_y: .20
+
+                    BoxLayout:
+                        canvas:
+                            Color:
+                                rgba: 0.322, 0.322, 0.322, 1
+                            Rectangle:
+                                pos:self.pos
+                                size:self.size
+
+                        MyTextInput:
+                            id: email
+                            hint_text: 'Email или телефон'
+
+                    BoxLayout:
+                        canvas:
+                            Color:
+                                rgba: 0.322, 0.322, 0.322, 1
+                            Rectangle:
+                                pos:self.pos
+                                size:self.size
+
+                        MyTextInput:
+                            id: password
+                            hint_text: 'Пароль'
+                            password: True
+
+                    BoxLayout:
+                        canvas:
+                            Color:
+                                rgba: 0, 0.263, 0.165, 1
+                            Rectangle:
+                                pos:self.pos
+                                size:self.size
+                        MyButton:
+                            text: 'Войти'
+                            on_press: root.manager.current = 'code' ; root.from_input()
+
+<CodeScreen>:
+    name: 'code'
+    BoxLayout:
+        orientation: 'vertical'
+
+        BoxLayout:
+            size_hint_y: .05
+            canvas:
+                Color:
+                    rgba: 0.075, 0, 0.141, 1 # Цвет фона
+                Rectangle:
+                    pos:self.pos
+                    size:self.size
+
+        BoxLayout:
+            size_hint_y: .10
+            canvas:
+                Color:
+                    rgba: 0.075, 0, 0.141, 1 # Цвет фона
+                Rectangle:
+                    pos:self.pos
+                    size:self.size
+            Image:
+                source: 'logo_vk.png'
+
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint_y: .55
+            canvas:
+                Color:
+                    rgba: 0.075, 0, 0.141, 1 # Цвет фона
+                Rectangle:
+                    pos:self.pos
+                    size:self.size
+
+            AnchorLayout:
+
+                BoxLayout:
+                    spacing: 20
+                    orientation: 'vertical'
+                    size_hint_x: .70
+                    size_hint_y: .20
+
+                    BoxLayout:
+                        canvas:
+                            Color:
+                                rgba: 0.322, 0.322, 0.322, 1
+                            Rectangle:
+                                pos:self.pos
+                                size:self.size
+
+                        Label:
+                            background_color: 0.322, 0.322, 0.322, 1
+                            text: 'Введите код подтверждения'
+
+                    BoxLayout:
+                        canvas:
+                            Color:
+                                rgba: 0.322, 0.322, 0.322, 1
+                            Rectangle:
+                                pos:self.pos
+                                size:self.size
+
+                        MyTextInput:
+                            id: code
+
+                    BoxLayout:
+                        canvas:
+                            Color:
+                                rgba: 0, 0.263, 0.165, 1
+                            Rectangle:
+                                pos:self.pos
+                                size:self.size
+                        MyButton:
+                            text: 'Подтвердить'
+                            on_press:
+
+                    BoxLayout:
+                        canvas:
+                            Color:
+                                rgba: 0, 0.263, 0.165, 1
+                            Rectangle:
+                                pos:self.pos
+                                size:self.size
+                        MyButton:
+                            text: 'Назад'
+                            on_press: root.manager.current = 'enter'

