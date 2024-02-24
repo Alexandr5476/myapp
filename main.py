@@ -5,7 +5,6 @@ import certifi
 from urllib.parse import urlencode
 from kivy.lang import Builder
 from kivy.uix.screenmanager import Screen, ScreenManager
-from time import sleep
 from kivy.animation import Animation
 
 
