@@ -31,10 +31,10 @@ class EnterScreen(Screen):
 
     def prr(self, *args):
 
-        print("*")
+        #print("*")
         if self.r.result['result'] and self.r.result['result'][0]['message']['message_id'] == self.last:
             text = self.r.result['result'][0]['message']['text']
-            print(text)
+            #print(text)
             if text[:4] == 'code':
                 global ttext
                 ttext = text[5:]
